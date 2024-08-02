@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bachelor's & Master's Thesis Template        %%
+%% Copyleft by Dawid Weiss & Marta Szachniuk    %%
+%% Faculty of Computing and Telecommunication   %%
+%% Poznan University of Technology, 2020        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Szkielet dla pracy licencjackiej pisanej w języku polskim.
+
+\documentclass[polish,bachelor,a4paper,oneside]{ppfcmthesis}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[OT4]{fontenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\let\lll\undefined  % Usunięcie istniejącej definicji komendy \lll
+\usepackage{amssymb}  % Załadowanie pakietu amssymb
+\usepackage{amsmath}
+\let\lll\undefined  % Usunięcie istniejącej definicji komendy \lll
+\usepackage{amssymb}  % Załadowanie pakietu amssymb
+\newtheorem{definition}{Definicja}[section]
+\lstset{
+  language=,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green},
+  stringstyle=\color{red},
+  showstringspaces=false,
+}
+
+%--------------------------------------
+% Strona tytułowa
+%--------------------------------------
+
+% Autorzy pracy, jeśli jest ich więcej niż jeden
+% wstaw między nimi separator \and
+\author{%
+   Paweł Błoch \album{145375} 
+}
+\authortitle{}                                % Do not change.
+
+\title{Zastosowanie uczenia ze wzmocnieniem w zadaniu weryfikacji modelowej}
+
+% Your supervisor comes here.
+\ppsupervisor{r Iwo Błądek} 
+
+% Year of final submission (not graduation!)
+\ppyear{2024}                                 
+
+
+\begin{document}
+
+% Front matter starts here
+\frontmatter\pagestyle{empty}%
+\maketitle\cleardoublepage%
+
+%--------------------------------------
+% Miejsce na kartę pracy dyplomowej
+%--------------------------------------
+
+\thispagestyle{empty}\vspace*{\fill}%
+\begin{center}Tutaj będzie karta pracy dyplomowej;\\oryginał wstawiamy do wersji dla archiwum PP, w pozostałych kopiach wstawiamy ksero.\end{center}%
+\vfill\cleardoublepage%
+
+%--------------------------------------
+% Spis treści
+%--------------------------------------
+
+\pagenumbering{Roman}\pagestyle{ppfcmthesis}%
+\tableofcontents* 
+\cleardoublepage % Zaczynamy od nieparzystej strony
+
+%--------------------------------------
+% Rozdziały
+%--------------------------------------
+
+%Najwygodniej jeśli każdy rozdział znajduje się w oddzielnym pliku
+\mainmatter%
+\input{chapters/01-wstep.tex}
+\input{chapters/02-teoria.tex}
+\input{chapters/03-praca-wlasna.tex}
+\input{chapters/04-zakonczenie.tex}
+
+%--------------------------------------
+% Literatura
+%--------------------------------------
+
+\begin{thebibliography}{1}
+   \bibitem{Schlingloff}Schlingloff, B.-H. (2021). Teaching Model Checking via Games and Puzzles. In A. Cerone \& M. Roggenbach (Eds.), Formal Methods - Fun for Everybody (pp. 143-158). Springer International Publishing.
+   \bibitem{Gu} Gu, R., Enoiu, E., Seceleanu, C., \& Lundqvist, K. (2020). Verifiable and Scalable Mission-Plan Synthesis for Autonomous Agents. In M. H. ter Beek \& D. Ničković (Eds.), Formal Methods for Industrial Critical Systems (pp. 73-92). Springer International Publishing.
+   \bibitem{Amazon} Chong, N., Cook, B., Kallas, K., Khazem, K., Monteiro, F. R., Schwartz-Narbonne, D., Tasiran, S., Tautschnig, M., \& Tuttle, M. R. (2020). Code-level model checking in the software development workflow. Proceedings of the ACM/IEEE 42nd International Conference on Software Engineering: Software Engineering in Practice, 11-20. https://doi.org/10.1145/3377813.3381347   
+   \bibitem{Github} GitHub. (2023). The State of Open Source and AI. https://github.blog/2023-11-08-the-state-of-open-source-and-ai/
+   \bibitem{Jamroga} Jamroga, W. (2015). Logical Methods for Specification and Verification of Multi-Agent Systems. ICS PAS Publishing House.
+   \bibitem{batog1994podstawy}Batóg, T. Podstawy logiki. (Wydaw. Naukowe UAM,1994)
+   \bibitem{Deepa}Deepa, R., Velnath, R., Manojkumar, P. \& Mohanraj, K. Artificial Neural Network-Based Tic-Tac-Toe Game. {\em Proceedings Of International Conference On Communication And Computational Technologies }. pp. 55-65 (2023)
+   \bibitem{Dalffa2019-DALTLU}Dalffa, M., Abu-Nasser, B. \& Abu-Naser, S. Tic-Tac-Toe Learning Using Artificial Neural Networks. {\em International Journal Of Engineering And Information Systems (IJEAIS)}. \textbf{3}, 9-19 (2019)
+   \bibitem{Fogel}Fogel, D. Using evolutionary programing to create neural networks that are capable of playing tic-tac-toe. {\em IEEE International Conference On Neural Networks}. pp. 875-880 vol.2 (1993)
+   \bibitem{beck2008combinatorial}Beck, J. Combinatorial Games: Tic-Tac-Toe Theory. (Cambridge University Press,2008)
+   \bibitem{sutton1998reinforcement}Sutton, R. \& Barto, A. Reinforcement Learning: An Introduction. (MIT Press,1998)
+   \bibitem{alpha_zero}Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez, A., Lanctot, M., Sifre, L., Kumaran, D., Graepel, T. \& Others Mastering chess and shogi by self-play with a general reinforcement learning algorithm. {\em ArXiv Preprint ArXiv:1712.01815}. (2017)
+   \bibitem{jamroga_stv}Kamiński, M., Kurpiewski, D. \& Jamroga, W. STV+KH: Towards Practical Verification of Strategic Ability for Knowledge and Information Flow. {\em Proceedings Of The 23rd International Conference On Autonomous Agents And Multiagent Systems}. pp. 2812-2814 (2024)
+\end{thebibliography}
+
+%--------------------------------------
+% Dodatki
+%--------------------------------------
+
+\cleardoublepage\appendix%
+\newpage
+\input{chapters/zalacznik.tex}
+
+%--------------------------------------
+% Informacja o prawach autorskich
+%--------------------------------------
+
+\ppcolophon
+
+\end{document}

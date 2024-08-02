@@ -1,0 +1,15 @@
+    \begin{table}[h!]
+      \centering
+      \begin{tabular}{|c|c|c|c|}
+      \hline
+      Wolne pola & Czas wykonania (s) & Liczba osiągalnych stanów & Użycie pamięci BDD (MB)  \\
+      \hline
+      17 &  20.644 & 2.96682e+07  & 49.41   \\
+       19 & 199.467 &2.5328e+08 & 125.25 \\
+       20& 641.051 &7.4155e+08 & 273.37 \\
+       21 & 1714 &2.1736e+09 & 575.39 \\
+      \hline
+      \end{tabular}
+      \caption{Wyniki checkera MCMAS}
+      \label{table:mcmas_results}
+      \end{table}
