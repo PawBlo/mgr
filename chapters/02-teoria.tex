@@ -47,14 +47,27 @@ M, q \models \Diamond \varphi & \text{wtedy i tylko wtedy, gdy} \quad \text{dla 
 
 Prosty przykład modelu Kripkiego może wyglądać tak:
 
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{figures/kripke_model.png}
     \caption{Model Kripkiego}
     \label{fig:enter-label}
   \end{figure}
 
-\subsection{Uczenie ze wzmocnieniem}
+  W tym przypadku zbiorem stanów jest zbiór $St=\{S_{1}, S_{2}, S_{3}, S_{4}\}$.
+  Relacja dostępności wygląda tak: $R=\{(S_{1}, S_{2}), (S_{1}, S_{3}), (S_{3}, S_{4})\}$.
+  Zbiór $PV$ możemy odczytać bezpośrednio z diagramu. Formuła 
+  \begin{equation*}
+    \Box (p \lor q)
+  \end{equation*}
+  jest prawdziwa. Wynika to z tego, że wyrażenie $p \lor q$ jest prawdziwe w każdym stanie na diagramie.
+  Formuła ta jest równoważna forumle 
+  \begin{equation*}
+    \neg \Diamond \neg(p \lor q)
+  \end{equation*}
+  poprzez zastosowanie podwójnej negacji.
+\subsection{Uczenie ze wzmocnieniem}. 
+
 Uczenie ze wzmocnieniem to dynamicznie rozwijająca się część sztucznej inteligencji.
 Jest to proces, w którym agent ucz się jakie działania podejmować w środowisku, 
 aby uzyskać jak największą nagrodę. Agent uczy się w pewien sposób metodą prób i błędów,
