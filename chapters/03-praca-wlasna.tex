@@ -174,12 +174,163 @@ na planszy o rozmiarach $3 \times 3$.
   \end{table}
   Dla liczby wolnych pól powyżej $7$ czas werfikacji przekrasza $1s$, dla liczby wolnych $9$ czas wynosi około $10$ minut. Oznacza, to że do werfikacji czy istnieje strategia 
   wygrywająca dla danego gracza w grze kółko i krzyżyk na planszy $3 \times 3$ potrzebny jest czas $10$ minut. 
+  Dalej będziemy rozwiązywali to zagadnienie z pomocą uczenie ze wzmocnieniem.
+
+  \subsection*{Uczenie ze wzmocnieniem}
+  Celem eksperymentów z użyciem uczenia ze wzmocnieniem jest odpowiedź na pytanie czy istnieja dla graczy 
+  strategia wygrywająca dla danej pozycji i gry w czasie istotnie mniejszym niż robi to klasyczny model 
+  checker. Wykorzystamy w tym celu trzech różnych agentów - graczy:
+  \begin{itemize}
+    \item \textit{AlphaZero} 
+    \item \textit{MCTS} 
+    \item \textit{Random}
+  \end{itemize}
+  Odpowiednio dwaj pierwszy to gracze wykorzystujący algorytmy o tych samych nazwach, a trzeci agent 
+  to agent wykonujący losowe ruchy. Rozpoczniemy od prostego testu rozegrania 
+  partii pomiędzy tymi trzem agentami. Rozegramy pomiędzy nimi $100$ partii, 
+  odzielnie dla każdej ze stron. Przyjmiemy przy tym domyślne paramtery które w 
+  dalszej części zostaną poddane analizie.
+  \begin{center}
+    \textbf{Tabela wyników rozgrywek pomiędzy graczami}
+    \end{center}
+  \begin{longtable}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{Gracz 1} & \textbf{Gracz 2} & \textbf{Wynik} & \textbf{Czas}(s) \\ \hline
+    AlphaZero & MCTS & 26:3 & 7.4 \\ \hline
+    AlphaZero & Random & 99:0 & 5.8\\ \hline
+    MCTS & AlphaZero & 0:0 & 8.7\\ \hline
+    MCTS & Random & 97:0 &  5 \\  \hline
+    Random & MCTS & 3:80 & 4.7 \\ \hline
+    Random & AlphaZero & 0:90 & 6.4 \\ \hline
+    \end{longtable}
+    Wynik $x:y$ czytamy tak, że Gracz $1$ wygrał $x$ rozgrywek, Gracz $2$ wygrał  $y$ 
+    rozgrywek a $100-x-y$ rogrywek zakończyło się remisem. Pierwsza obserwacja 
+    jest taka, że byciem graczem rozpoczynającym grę daje pewną przewagę. Widzmy również, 
+    że gracz \textit{AlphaZero} nie przegrał całościowo żadnej serii gier. Dla algorytmów 
+    \textit{MCMAS} i \textit{AlphaZero} maksymalna liczba symulacji została ustawiona na $100$.
+
+    Zbadamy teraz jak zmienią się wyniki pomiędzy tymi graczami wraz ze zmianą maksymalnej 
+    liczby symulacji.
+
+    \begin{longtable}{|c|c|c|c|c|}
+      \hline
+      \textbf{Gracz 1} & \textbf{Gracz 2} & \textbf{Wynik} & \textbf{Czas} & \textbf{liczba symulacji} \\ \hline
+      AlphaZero & MCTS & 33:0 & 6,5 & 50 \\ \hline
+      AlphaZero & MCTS & 23:9 & 7,3s & 100 \\ \hline
+      AlphaZero & MCTS & 21:6 & 9,8s & 150 \\ \hline
+      AlphaZero & MCTS & 10:0 & 12,3s & 200 \\ \hline
+      AlphaZero & MCTS & 10:0 & 13,9s & 250 \\ \hline
+      AlphaZero & MCTS & 5:0 & 15,3s & 300 \\ \hline
+      AlphaZero & MCTS & 8:0 & 16,7s & 350 \\ \hline
+      AlphaZero & MCTS & 3:0 & 19,3s & 400 \\ \hline
+      AlphaZero & MCTS & 3:0 & 20,0s & 450 \\ \hline
+      AlphaZero & MCTS & 6:0 & 21,9s & 500 \\ \hline
+      \end{longtable}
+
+    Badanie to pokazuje nam 2 fakty. Pierwszym z nich jest to, że wraz z większeniem liczby symulacji 
+    zwiększa się liczba rogrywek remisowych, a przewaga gracza pierwszego w tym przypadku \textit{AlphaZero}
+    zmniejsza się. Gdy odwrócimy strony, 
+    \begin{longtable}{|c|c|c|c|c|}
+      \hline
+      \textbf{Gracz 1} & \textbf{Gracz 2} & \textbf{Wynik} & \textbf{Czas} & \textbf{liczba symulacji} \\ \hline
+      MCTS & AlphaZero & 21:3 & 8,5s & 50 \\ \hline
+      MCTS & AlphaZero & 0:0 & 9,7s & 100 \\ \hline
+      MCTS & AlphaZero & 0:1 & 11,4s & 150 \\ \hline
+      MCTS & AlphaZero & 1:0 & 12,9s & 200 \\ \hline
+      MCTS & AlphaZero & 0:0 & 15,1s & 250 \\ \hline
+      MCTS & AlphaZero & 0:0 & 16,s & 300 \\ \hline
+      MCTS & AlphaZero & 0:0 & 19,4s & 350 \\ \hline
+      MCTS & AlphaZero & 0:0 & 20,3s & 400 \\ \hline
+      MCTS & AlphaZero & 4:0 & 21,2s & 450 \\ \hline
+      MCTS & AlphaZero & 15:0 & 23,3s & 500 \\ \hline
+      \end{longtable}
+    Po obróceniu graczy wyniki są zbliżone. Ponownie w środku tabeli mamy 
+    bardzo dużo, a właściwie same remisy. Ciekawym zjawiskiem może być 
+    zwiększenie liczby wygranych gracz \textit{MCTS} przy dużej liczby symulacji.
+    Może to być powodem lepszej i bardziej dokładnej ocenie pozycji 
+    poprzez wykonanie dużej liczby symulacji, a model gracza \textit{AlphaZero}
+    nie został dotrenowany na takim poziomie, aby był w $100\%$ skuteczny. 
+    
+    Kolejną krótką analizę przeprowadzimy już od pewnego stanu początkowego 
+    zastanego na planszy. Różnica ta nam wprowadzi też pewien nowy element, 
+    mianowicie gra nie będzie już grą remisową. Pierwszy gracz w naszej pozycji 
+    będzie miał strategię wygrywającą.
+    Pozycję którą będziemy analizowali znajdziemy poniżej. Zakładamy, że na ruchu 
+    jest gracz \textit{x}.
+
+    \begin{center}
+      \begin{tikzpicture}[scale=2]
+          % Draw the grid
+          \draw (0,0) grid (3,3);
+      
+          % Add the initial position
+          \node at (0.5, 2.5) {\huge X};
+          \node at (1.5, 2.5) {\huge O};
+          
+      \end{tikzpicture}
+      \end{center}
+
+      \begin{longtable}{|c|c|c|c|c|}
+        \hline
+        \textbf{Gracz 1} & \textbf{Gracz 2} & \textbf{Wynik} & \textbf{Czas(s)} & \textbf{liczba symulacji} \\ \hline
+        MCTS & AlphaZero & 78:0 & 4,7 & 50 \\ \hline
+        MCTS & AlphaZero & 95:0 & 5,4 & 100 \\ \hline
+        MCTS & AlphaZero & 96:0 & 5,5 & 150 \\ \hline
+        MCTS & AlphaZero & 92:0 & 6,9 & 200 \\ \hline
+        MCTS & AlphaZero & 96:0 & 7,6 & 250 \\ \hline
+        MCTS & AlphaZero & 94:0 & 7,8 & 300 \\ \hline
+        MCTS & AlphaZero & 99:0 & 9,0 & 350 \\ \hline
+        MCTS & AlphaZero & 100:0 & 7,1 & 400 \\ \hline
+        MCTS & AlphaZero & 100:0 & 6,0 & 450 \\ \hline
+        MCTS & AlphaZero & 100:0 & 6,0 & 500 \\ \hline
+        \end{longtable}
+
+        \begin{longtable}{|c|c|c|c|c|}
+          \hline
+          \textbf{Gracz 1} & \textbf{Gracz 2} & \textbf{Wynik} & \textbf{Czas(s)} & \textbf{liczba symulacji} \\ \hline
+          AlphaZero & MCTS & 100:0 & 4,9 & 50 \\ \hline
+          AlphaZero & MCTS & 1000:0 & 5,0 & 100 \\ \hline
+          AlphaZero & MCTS & 100:0 & 5,3 & 150 \\ \hline
+          AlphaZero & MCTS & 100:0 & 5,7 & 200 \\ \hline
+          AlphaZero & MCTS & 100:0 & 5,9 & 250 \\ \hline
+          AlphaZero & MCTS & 100:0 & 6,3 & 300 \\ \hline
+          AlphaZero & MCTS & 100:0 & 6,0 & 350 \\ \hline
+          AlphaZero & MCTS & 100:0 & 6,4 & 400 \\ \hline
+          AlphaZero & MCTS & 100:0 & 6,1 & 450 \\ \hline
+          AlphaZero & MCTS & 100:0 & 6,8 & 500 \\ \hline
+          \end{longtable}
+    Obie tabele dały nam obiecujące wyniki. Widzimy, że liczba gier remisowych 
+    jest bardzo mała. Tylko dla liczby symulacji równej $50$ liczba gier remisowcyh 
+    była większa niż $10 \%$. Zauważmy dalej, że gracz mająct strategię wygrywającą 
+    nigdy nie przegrał rozgrywki. Cofając się do poprzednich tabel w których 
+    liczba remisów dla pozycji remisujących wynosiła ponad $70 \%$ widzimy znaczącą 
+    różnicę w odsektu remisów w zależności od tego, czy któryś z graczy 
+    ma pozycję wygrywającą czy pozycja jest remisująca. To bardzo pozytywne wyniki,
+    gdyż potwierdzają one, że wykorzystanie metod uczenia ze wzmocnieniem 
+    może być pomocne dla werfikacji pewnych modeli. Może też być szybsze, 
+    na aktualnym przykładzie uzyskaliśmy drobne przyspieszenie wynoszące maksylanie 
+    $10$ krotność. Eksperyment ten, nie służył uzyskaniu błyskawicznych wyników 
+    dla małych modeli. Dla małych modeli narzędzia werfikacji sprawdzają się dobrze.
+    Naszym calem było sprawdzenie naszej metody na małym przykładzie aby później 
+    z większą pewności i doświadczeniem przetestować ją na większych przykład 
+    dla których klasyczne narzędzia werfikacji modelowej nie wystarczają.
+          
+    Narzędzie \textit{STV} ma swoje ograniczenia czasowe. Sprawdzenie pustej 
+    planszy $3 \times 3$ zajmuje około $10 $ minut. Rozegranie $100$ gier 
+    i przeprowadzenie po kilkaset symulacji dla naszych algorytmów zajmuje 
+    około minuty (czas trwania tranowania \textit{AlphaZero} to $40$s i około 
+    $20$ na symulację rozgrywek). Na podstawie tak zebranych danych możemy 
+    z dużym prawdopodobieństwem ocenić pozycję jako remisową. Jeśli chcemy 
+    przejść na większe plansze jak $5 \times 5$ czy decelowo $5 \times 5 \times 5$,
+    musimy zmienić podejście do badania. Ja zdecydowałem na wybór innego narzędzia 
+    do dalszych badań. Narzędzia które dłużej istnieje na rynku i ma swoją 
+    ugruntowaną pozycję.
 
 
 
 
 
-\section{Model gry}
+\section{Model checker MCMAS}
 Gra została zamodelowana w języku \textit{ISPL}. Jest to język który jest wykorzystywany przez narzędzie \textit{MCMAS}.
 Przedstawimy kluczowe fragmenty modelu dla lepszego zrozumienia problemu i tego, w jakis posób działa werfikacka modelu.
 

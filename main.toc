@@ -4,11 +4,11 @@
 \contentsline {chapter}{\chapternumberline {2}Podstawy teoretyczne}{2}{chapter.2}%
 \contentsline {subsection}{\numberline {2.0.1}Logika}{2}{subsection.2.0.1}%
 \contentsline {subsection}{\numberline {2.0.2}Uczenie ze wzmocnieniem}{3}{subsection.2.0.2}%
-\contentsline {subsection}{\numberline {2.0.3}Algorytmy uczenie ze wzmocnieniem}{3}{subsection.2.0.3}%
+\contentsline {subsection}{\numberline {2.0.3}Algorytmy uczenie ze wzmocnieniem}{4}{subsection.2.0.3}%
 \contentsline {chapter}{\chapternumberline {3}Rozwinięcie}{5}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Wprowadzenie do problemu}{5}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}Model checker STV}{5}{subsection.3.1.1}%
-\contentsline {section}{\numberline {3.2}Model gry}{8}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}Badania}{10}{subsection.3.2.1}%
-\contentsline {chapter}{\chapternumberline {4}Zakończenie}{11}{chapter.4}%
-\contentsline {chapter}{Literatura}{12}{chapter*.5}%
+\contentsline {section}{\numberline {3.2}Model checker MCMAS}{11}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Badania}{12}{subsection.3.2.1}%
+\contentsline {chapter}{\chapternumberline {4}Zakończenie}{14}{chapter.4}%
+\contentsline {chapter}{Literatura}{15}{chapter*.6}%
